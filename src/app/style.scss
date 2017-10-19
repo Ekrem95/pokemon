@@ -1,0 +1,70 @@
+html, body {
+  background: rgb(43, 156, 212);
+  color: #fff;
+  font-size: 16px;
+
+  .home {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    #pokemons {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      width: 97vw;
+      margin-bottom: 40px;
+
+      .selected-pokemon {
+        background: rgb(11, 135, 198);
+      }
+
+      div {
+        width: 120px;
+        height: 30px;
+        border: .5px solid rgba(0, 0, 0, 0.26);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+          background: rgb(11, 135, 198);
+          cursor: pointer;
+        }
+
+        span {
+          text-transform:capitalize;
+        }
+      }
+    }
+
+    #pokemon-specs {
+      width: 80vw;
+      height: 100vw;
+
+      h2 {
+        text-transform:capitalize;
+      }
+
+      #titles {
+        font-size: 1.1rem;
+      }
+
+      #moves {
+        max-height: 50%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        div {
+          width: 160px;
+          height: 30px;
+          text-transform:capitalize;
+        }
+      }
+    }
+  }
+}
