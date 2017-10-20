@@ -119,7 +119,9 @@ export default class Details extends Component {
       );
     } else {
       return (
-        <div>Loading...</div>
+        <div className="centre">
+          <h3>Loading...</h3>
+        </div>
       );
     }
   }

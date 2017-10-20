@@ -4,6 +4,11 @@ html, body {
   font-size: 16px;
   margin: 0;
 
+  @keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
   table {
     border-width: 2px;
     background: #fff;
@@ -15,12 +20,20 @@ html, body {
       }
   }
 
+  .centre {
+    h3 {
+      text-align: center;
+    }
+  }
+
   .home {
     margin-top: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    animation: fadein 1s;
 
     #searchBox {
       margin-bottom: 20px;
@@ -63,6 +76,7 @@ html, body {
       align-items: flex-start;
       width: 97vw;
       margin-bottom: 40px;
+      margin-left: 20px;
 
       .selected-pokemon {
         background: rgb(11, 135, 198);
@@ -113,8 +127,14 @@ html, body {
       width: 80vw;
       height: 100vw;
 
+      animation: fadein 1s;
+
       h2 {
         text-transform:capitalize;
+      }
+
+      h3 {
+        text-align: center;
       }
 
       #titles {
@@ -163,6 +183,8 @@ html, body {
     flex-direction: column;
     justify-content: center;
     margin: 40px 0;
+
+    animation: fadein 1s;
 
     div.names {
       width: 100vw;
@@ -226,6 +248,8 @@ html, body {
     align-items: center;
     padding-top: 40px;
 
+    animation: fadein 1s;
+
     p, h4 {
       margin-left: 20px;
     }
@@ -240,6 +264,32 @@ html, body {
       * {
         margin: 20px;
       }
+    }
+  }
+
+  #berry {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+
+    animation: fadein 1s;
+
+    input {
+      background: rgb(227, 69, 216);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      width: 80px;
+      height: 25px;
+      margin: 20px;
+
+      &:hover {
+        transform: scale(1.1);
+        background: rgb(224, 33, 211);
+      }
+
     }
   }
 }
