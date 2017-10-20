@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { pokemon } from '../pokemon';
 
 export default class Home extends Component {
+  render () {
+    return (<div></div>);
+  }
+
   constructor() {
     super();
     this.state = {
@@ -105,7 +108,6 @@ export default class Home extends Component {
             onClick={() => {
               const searchVal = document.getElementById('searchVal').value;
               axios.get(`https://pokeapi.co/api/v2/${searchVal}/`).then(res => {
-                console.log(res.data);
                 if (res.data.results) {
                   this.setState({ data: res.data });
                 }
