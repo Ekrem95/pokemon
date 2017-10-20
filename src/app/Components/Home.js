@@ -8,17 +8,60 @@ export default class Home extends Component {
     this.state = {
       data: null,
       pokemon: null,
+      mainUrl: 'https://pokeapi.co/api/v2/pokemon/',
     };
 
+    this.getMain = this.getMain.bind(this);
     this.getDetails = this.getDetails.bind(this);
+    this.previousPage = this.previousPage.bind(this);
+    this.nextPage = this.nextPage.bind(this);
   }
 
   componentWillMount() {
-    axios.get('https://pokeapi.co/api/v2/pokemon/').then(res => {
-      console.log(res.data);
+    this.getMain(this.state.mainUrl);
+  }
+
+  getMain(url) {
+    axios.get(url).then(res => {
       this.setState({ data: res.data });
     })
     .catch(e => console.log(e));
+  }
+
+  previousPage() {
+    let mainUrl = this.state.mainUrl;
+    if (mainUrl.indexOf('offset') < 0) {
+      return;
+    } else {
+      const offsetindex = mainUrl.indexOf('offset=');
+      let value = mainUrl.substring(offsetindex + 'offset='.length, mainUrl.length);
+      value = parseInt(value - 20);
+      if (value > 20) {
+        mainUrl = mainUrl.substr(0, offsetindex + 'offset='.length) + value;
+        this.setState({ mainUrl });
+      }else {
+        mainUrl = mainUrl.substr(0, offsetindex);
+        this.setState({ mainUrl });
+      }
+
+      this.getMain(mainUrl);
+    }
+  }
+
+  nextPage() {
+    let mainUrl = this.state.mainUrl;
+    if (mainUrl.indexOf('offset') < 0) {
+      mainUrl += '?offset=20';
+      this.setState({ mainUrl });
+    } else {
+      const offsetindex = mainUrl.indexOf('offset=');
+      let value = mainUrl.substring(offsetindex + 'offset='.length, mainUrl.length);
+      value = parseInt(value + 20);
+      mainUrl = mainUrl.substr(0, offsetindex + 'offset='.length) + value;
+      this.setState({ mainUrl });
+    }
+
+    this.getMain(mainUrl);
   }
 
   getDetails(url) {
@@ -46,7 +89,7 @@ export default class Home extends Component {
         moves,
         species: data.species.name,
         sprites: data.sprites,
-        derails: data,
+        details: data,
       });
     });
   }
@@ -54,6 +97,24 @@ export default class Home extends Component {
   render() {
     return (
       <div className="home">
+        <div id="searchBox">
+          <input id="searchVal" type="text" placeholder="Search pokemon types" />
+          <input
+            type="button"
+            value="Search"
+            onClick={() => {
+              const searchVal = document.getElementById('searchVal').value;
+              axios.get(`https://pokeapi.co/api/v2/${searchVal}/`).then(res => {
+                console.log(res.data);
+                if (res.data.results) {
+                  this.setState({ data: res.data });
+                }
+              })
+              .catch(e => console.log(e));
+            }}
+
+          />
+        </div>
         <div id="pokemons">
           {this.state.data &&
             this.state.data.results.map(pokemon =>
@@ -63,7 +124,7 @@ export default class Home extends Component {
 
                     var elems = document.querySelectorAll('.pokemon');
 
-                    [].forEach.call(elems, function (el) {
+                    [].forEach.call(elems, (el) => {
                         el.classList.remove('selected-pokemon');
                       });
 
@@ -82,6 +143,24 @@ export default class Home extends Component {
               )
           }
         </div>
+        {this.state.data &&
+          <div>
+          {this.state.mainUrl.indexOf('offset') > -1 &&
+          <div className="navButttons">
+            <input type="button" value="previous" onClick={this.previousPage}/>
+            <input type="button" value="next" onClick={this.nextPage}/>
+          </div>
+          }
+
+          {(this.state.mainUrl.indexOf('offset') < 0 &&
+            this.state.data.count > 20
+          ) &&
+          <div className="navButttons">
+            <input type="button" value="next" onClick={this.nextPage}/>
+          </div>
+          }
+          </div>
+        }
         <div id="pokemon-specs">
           {!this.state.pokemon &&
             <div>

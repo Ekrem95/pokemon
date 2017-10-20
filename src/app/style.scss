@@ -10,6 +10,40 @@ html, body {
     justify-content: center;
     align-items: center;
 
+    #searchBox {
+      margin-bottom: 20px;
+      
+      * {
+        margin: 0 5px;
+      }
+      input[type='text'] {
+        width: 200px;
+        height: 25px;
+        border-radius: 15px;
+        padding-left: 10px;
+        background: white !important;
+
+        &:focus{
+          outline: none;
+        }
+      }
+
+      input[type='button'] {
+        background: rgb(227, 69, 216);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        width: 80px;
+        height: 25px;
+
+        &:hover {
+          transform: scale(1.1);
+          background: rgb(224, 33, 211);
+        }
+
+      }
+    }
+
     #pokemons {
       display: flex;
       flex-direction: row;
@@ -33,10 +67,32 @@ html, body {
         &:hover {
           background: rgb(11, 135, 198);
           cursor: pointer;
+          transform: scale(1.1);
         }
 
         span {
           text-transform:capitalize;
+        }
+      }
+    }
+
+    .navButttons {
+      width: 320px;
+      margin: 0 auto;
+      input {
+        width: 120px;
+        height: 30px;
+        border: none;
+        border-radius: 4px;
+        background: rgb(227, 69, 216);
+        color: #fff;
+        margin: 10px 10px;
+        font-size: 1.1rem;
+
+        &:hover {
+          cursor: pointer;
+          background: rgb(224, 33, 211);
+          transform: scale(1.1);
         }
       }
     }
